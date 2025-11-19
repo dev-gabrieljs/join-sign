@@ -1,5 +1,6 @@
 package com.br.join_sign.controller;
 
+import com.br.join_sign.dto.response.TextoResponse;
 import com.br.join_sign.service.imp.TranscricaoAudioServiceImp;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -22,8 +23,9 @@ public class TranscricaoAudioController {
   }
 
   @PostMapping(value= "/transcrever", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-  public ResponseEntity<String> transcrever(@RequestParam("file") MultipartFile file) throws IOException, InterruptedException {
-      String texto =
+  public ResponseEntity<TextoResponse> transcrever(@RequestParam("file") MultipartFile file) throws IOException,
+          InterruptedException {
+      TextoResponse texto =
           transcricaoAudioServiceImp.transcreverAudio(file.getInputStream(), file.getContentType());
       return ResponseEntity.ok(texto);
   }
